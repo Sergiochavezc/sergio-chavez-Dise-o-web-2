@@ -1,0 +1,48 @@
+class Producto {
+    constructor(nombre, precio, cantidad) {
+      this.nombre = nombre;
+      this.precio = precio;
+      this.cantidad = cantidad;
+    }
+  }
+ 
+  class CarritoDeCompras {
+    constructor() {
+      this.productos = [];
+    }
+ 
+    agregarProducto(producto) {
+      this.productos.push(producto);
+    }
+ 
+    modificarProducto(nombre, nuevaCantidad) {
+      const producto = this.productos.find(producto => producto.nombre === nombre);
+      if (producto) {
+        producto.cantidad = nuevaCantidad;
+      }
+    }
+ 
+    aplicarDescuento(nombre, porcentaje) {
+      const producto = this.productos.find(producto => producto.nombre === nombre);
+      if (producto) {
+        producto.precio -= producto.precio * (porcentaje / 100);
+      }
+    }
+ 
+    generarResumen() {
+      let total = 0;
+      console.log("Resumen de la compra:");
+      this.productos.forEach(producto => {
+        console.log(`${producto.nombre}: $${producto.precio.toFixed(2)} Cantidad: ${producto.cantidad}`);
+        total += producto.precio * producto.cantidad;
+      });
+      console.log(`Total: $${total.toFixed(2)}`);
+    }
+  }
+ 
+  const carrito = new CarritoDeCompras();
+  const producto1 = new Producto("celular", 3200, 1);
+  const producto2 = new Producto("funda", 50, 1);
+  carrito.agregarProducto(producto1);
+  carrito.agregarProducto(producto2);
+  carrito.generarResumen();
